@@ -4,12 +4,15 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -24,6 +27,24 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static final class IntakeConstants {
+    // CAN IDs for the Intake Motors
+    public static final int INTAKE_MOTOR_RIGHT = 999;
+    public static final int INTAKE_MOTOR_LEFT = 999;
+
+    // CAN ID for the Pivot Motors
+    public static final int PIVOT_MOTOR = 89;
+
+    // Speed Constants for Intake and Pivot
+    public static final double INTAKE_SPEED = 0.6;
+    public static final double OUTTAKE_SPEED = -0.6;
+    public static final double PIVOT_UP_SPEED = 0.2;
+    public static final double PIVOT_DOWN_SPEED = -0.2;
+
+    public static final int MOTOR_CURRENT_LIMIT = 40;
+  }
+
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
@@ -140,6 +161,8 @@ public final class Constants {
     public static final double kPXController = 1;
     public static final double kPYController = 1;
     public static final double kPThetaController = 1;
+
+    public static final HashMap<String, Command> AUTO_EVENT_MAP = new HashMap<>();
 
     // Constraint for the motion profiled robot angle controller
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
