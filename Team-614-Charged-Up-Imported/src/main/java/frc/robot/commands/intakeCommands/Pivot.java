@@ -7,15 +7,22 @@ package frc.robot.commands.intakeCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
+/* The Pivot Command uses the PivotSubsystem in order
+ * to set a specific value to the Pivot for the intake 
+ * of the robot
+*/
+
 public class Pivot extends CommandBase {
+
+
 
   public double pivotSpeed;
 
   /** Creates a new Pivot. */
-  public Pivot(double val) {
+  public Pivot(double pivotSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.pivotSubsystem);
-    pivotSpeed = val;
+    this.pivotSpeed = pivotSpeed;
   }
 
   // Called when the command is initially scheduled.

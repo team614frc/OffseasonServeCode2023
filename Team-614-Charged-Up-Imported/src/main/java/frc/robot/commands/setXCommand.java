@@ -11,13 +11,13 @@ import frc.robot.subsystems.DriveSubsystem;
 public class setXCommand extends CommandBase {
   /** Creates a new setXCommand. */
   public setXCommand() {
-    addRequirements(RobotContainer.swerbeDrive);
+    addRequirements(RobotContainer.swerveDrive);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.swerbeDrive.setX();
+    RobotContainer.swerveDrive.setX();
   }
 
   // Returns true when the command should end.

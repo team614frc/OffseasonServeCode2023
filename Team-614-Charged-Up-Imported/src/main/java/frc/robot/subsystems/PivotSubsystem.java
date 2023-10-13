@@ -10,10 +10,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
+/* The PivotSubsystem has the motor objects for the motors of the
+ * Pivot on the robot. It also sets them a value based on the input
+ * received from a command
+ */
+
 public class PivotSubsystem extends SubsystemBase {
   /** Creates a new PivotSubsystem. */
 
-  CANSparkMax pivotMotor;
+  private CANSparkMax pivotMotor;
 
   public PivotSubsystem() {
     pivotMotor = new CANSparkMax(IntakeConstants.PIVOT_MOTOR, MotorType.kBrushless);
