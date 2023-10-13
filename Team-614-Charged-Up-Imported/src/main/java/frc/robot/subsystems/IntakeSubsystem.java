@@ -10,11 +10,20 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
+/**
+ * The IntakeSubsystem contains all the motors for the intake
+ * of the robot and sets them a value that is passed to it
+ * using a command
+ * -
+ * @param intakeSpeed Variable indicates the speed passed by the commans
+ * that the intake motors should be set to
+ */
+
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   
-  CANSparkMax intakeMotorR;
-  CANSparkMax intakeMotorL;
+  private CANSparkMax intakeMotorR;
+  private CANSparkMax intakeMotorL;
   
   public IntakeSubsystem() {
     // Creates a new motor
@@ -22,6 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeMotorR.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
     intakeMotorL = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_LEFT, MotorType.kBrushless);
     intakeMotorL.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
+    intakeMotorL.follow(intakeMotorR); // Sets the left motor to be the follow of the right intake motor
   }
 
 @Override
@@ -30,9 +40,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   // Sets the value of the motor to a double, at which the motor will run
-  public void set(double val) {
-    intakeMotorR.set(val);
-    intakeMotorL.set(val);
+  public void set(double intakeSpeed) {
+    intakeMotorR.set(intakeSpeed);
   }
 
 }

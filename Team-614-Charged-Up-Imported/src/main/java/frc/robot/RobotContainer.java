@@ -49,16 +49,17 @@ import java.util.List;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
+
 public class RobotContainer {
   // The robot's subsystems
-  public final static DriveSubsystem swerbeDrive = new DriveSubsystem();
+  public final static DriveSubsystem swerveDrive = new DriveSubsystem();
   public final static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   public final static PivotSubsystem pivotSubsystem = new PivotSubsystem();
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
 
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Command> autoChooser = new SendableChooser<>();
   // private final Command TestPath1
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -66,19 +67,19 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    // m_chooser.addOption("Test Path", TestPath1);
-    SmartDashboard.putData(m_chooser);
+    // autoChooser.addOption("Test Path", TestPath1);
+    SmartDashboard.putData(autoChooser);
     // Configure default commands
-    swerbeDrive.setDefaultCommand(
+    swerveDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
         // Turning is controlled by the X axis of the right stick.
         new RunCommand(
-            () -> swerbeDrive.drive(
+            () -> swerveDrive.drive(
                 -MathUtil.applyDeadband(m_driverController.getLeftY(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getLeftX(), OIConstants.kDriveDeadband),
                 -MathUtil.applyDeadband(m_driverController.getRightX(), OIConstants.kDriveDeadband),
                 true, true),
-            swerbeDrive));
+            swerveDrive));
   }
 
   /**
@@ -93,7 +94,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_driverController.button(OIConstants.RIGHT_BUMPER).whileTrue(new setXCommand());
     m_driverController.button(OIConstants.LEFT_BUMPER).whileTrue(new Intake(IntakeConstants.OUTTAKE_SPEED));
-    m_driverController.leftTrigger().whileTrue(new Intake(IntakeConstants.INTAKE_SPEED)); // Check if while true works
+    m_driverController.leftTrigger().onTrue(new Intake(IntakeConstants.INTAKE_SPEED)); // Check if while true works
     m_driverController.povDown().whileTrue(new Pivot(IntakeConstants.PIVOT_DOWN_SPEED));
     m_driverController.povUp().whileTrue(new Pivot(IntakeConstants.PIVOT_UP_SPEED));
   }
@@ -128,21 +129,21 @@ public class RobotContainer {
 
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
         exampleTrajectory,
-        swerbeDrive::getPose, // Functional interface to feed supplier
+        swerveDrive::getPose, // Functional interface to feed supplier
         DriveConstants.kDriveKinematics,
 
         // Position controllers
         new PIDController(AutoConstants.kPXController, 0, 0),
         new PIDController(AutoConstants.kPYController, 0, 0),
         thetaController,
-        swerbeDrive::setModuleStates,
-        swerbeDrive);
+        swerveDrive::setModuleStates,
+        swerveDrive);
 
     // Reset odometry to the starting pose of the trajectory.
-    swerbeDrive.resetOdometry(exampleTrajectory.getInitialPose());
+    swerveDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> swerbeDrive.drive(0, 0, 0, false, false));
+    return swerveControllerCommand.andThen(() -> swerveDrive.drive(0, 0, 0, false, false));
   }
 
 }

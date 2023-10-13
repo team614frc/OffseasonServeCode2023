@@ -7,15 +7,22 @@ package frc.robot.commands.intakeCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
+/**
+ * The Intake Command simply uses the IntakeSubsystem
+ * to set the Intake rollers to a specific value
+ * -
+ * @param intakeSpeed,RobotContainer.intakeSubsystem this is the value that the intake will get set to
+ */
+
 public class Intake extends CommandBase {
   
-public double intakeSpeed;
+  public double intakeSpeed;
 
   /** Creates a new Intake. */
-  public Intake(double val) {
+  public Intake(double intakeSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.intakeSubsystem);
-    intakeSpeed = val;
+    this.intakeSpeed = intakeSpeed;
   }
 
   // Called when the command is initially scheduled.
