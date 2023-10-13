@@ -23,9 +23,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.setXCommand;
+import frc.robot.commands.intakeCommands.Intake;
+import frc.robot.commands.intakeCommands.Pivot;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.PivotSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -47,19 +52,21 @@ import java.util.List;
 public class RobotContainer {
   // The robot's subsystems
   public final static DriveSubsystem swerbeDrive = new DriveSubsystem();
+  public final static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  public final static PivotSubsystem pivotSubsystem = new PivotSubsystem();
 
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
 
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-  private final Command TestPath1
+  // private final Command TestPath1
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    m_chooser.addOption("Test Path", TestPath1);
+    // m_chooser.addOption("Test Path", TestPath1);
     SmartDashboard.putData(m_chooser);
     // Configure default commands
     swerbeDrive.setDefaultCommand(
@@ -85,6 +92,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     m_driverController.button(OIConstants.RIGHT_BUMPER).whileTrue(new setXCommand());
+    m_driverController.button(OIConstants.LEFT_BUMPER).whileTrue(new Intake(IntakeConstants.OUTTAKE_SPEED));
+    m_driverController.leftTrigger().whileTrue(new Intake(IntakeConstants.INTAKE_SPEED)); // Check if while true works
+    m_driverController.povDown().whileTrue(new Pivot(IntakeConstants.PIVOT_DOWN_SPEED));
+    m_driverController.povUp().whileTrue(new Pivot(IntakeConstants.PIVOT_UP_SPEED));
   }
 
   /**
