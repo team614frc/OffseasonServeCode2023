@@ -10,9 +10,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
-/* The IntakeSubsystem contains all the motors for the intake
+/**
+ * The IntakeSubsystem contains all the motors for the intake
  * of the robot and sets them a value that is passed to it
  * using a command
+ * -
+ * @param intakeSpeed Variable indicates the speed passed by the commans
+ * that the intake motors should be set to
  */
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -36,8 +40,8 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   // Sets the value of the motor to a double, at which the motor will run
-  public void set(double val) {
-    intakeMotorR.set(val);
+  public void set(double intakeSpeed) {
+    intakeMotorR.set(intakeSpeed);
   }
 
 }

@@ -21,10 +21,6 @@ import frc.robot.Constants.DriveConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-/* The Drive Subsystem contains all the drive motors and gives
- * them values based on input for the swerve motors
- */
-
 public class DriveSubsystem extends SubsystemBase {
   // Create MAXSwerveModules
   private final MAXSwerveModule m_frontLeft = new MAXSwerveModule(

@@ -94,7 +94,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_driverController.button(OIConstants.RIGHT_BUMPER).whileTrue(new setXCommand());
     m_driverController.button(OIConstants.LEFT_BUMPER).whileTrue(new Intake(IntakeConstants.OUTTAKE_SPEED));
-    m_driverController.leftTrigger().whileTrue(new Intake(IntakeConstants.INTAKE_SPEED)); // Check if while true works
+    m_driverController.leftTrigger().onTrue(new Intake(IntakeConstants.INTAKE_SPEED)); // Check if while true works
     m_driverController.povDown().whileTrue(new Pivot(IntakeConstants.PIVOT_DOWN_SPEED));
     m_driverController.povUp().whileTrue(new Pivot(IntakeConstants.PIVOT_UP_SPEED));
   }
