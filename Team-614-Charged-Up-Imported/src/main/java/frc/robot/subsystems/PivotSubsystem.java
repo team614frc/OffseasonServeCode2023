@@ -17,7 +17,7 @@ import frc.robot.Constants.IntakeConstants;
  * - 
  * @param pivotSpeed Variable represents the speed passed from a command
  * that pivot motors should be set to
- * @returns pivotPosition
+ * @returns pivotPosition through the getPosition()
  */
 
 public class PivotSubsystem extends SubsystemBase {
