@@ -39,6 +39,10 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  public void getSpeed() {
+    intakeMotorR.get();
+  }
+
   // Sets the value of the motor to a double, at which the motor will run
   public void set(double intakeSpeed) {
     intakeMotorR.set(intakeSpeed);
