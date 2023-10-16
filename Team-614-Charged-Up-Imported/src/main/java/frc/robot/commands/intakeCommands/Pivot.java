@@ -5,7 +5,9 @@
 package frc.robot.commands.intakeCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.PivotSubsystem;
 
 /**
  * The Pivot Command uses the PivotSubsystem in order
@@ -17,7 +19,7 @@ import frc.robot.RobotContainer;
 
 public class Pivot extends CommandBase {
 
-  public double pivotSpeed;
+  private double pivotSpeed;
 
   /** Creates a new Pivot. */
   public Pivot(double pivotSpeed) {
@@ -33,7 +35,21 @@ public class Pivot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.pivotSubsystem.set(pivotSpeed);
+    // RobotContainer.pivotSubsystem.set(pivotSpeed);
+    if (pivotSpeed>0) {
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()<0)
+        RobotContainer.pivotSubsystem.set(pivotSpeed);
+      else 
+        RobotContainer.pivotSubsystem.set(pivotSpeed);
+    }
+    else if (pivotSpeed<0) {
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()>0)
+        RobotContainer.pivotSubsystem.set(pivotSpeed);
+      else 
+        RobotContainer.pivotSubsystem.set(pivotSpeed);
+    }
+    else 
+      RobotContainer.pivotSubsystem.set(pivotSpeed);
   }
 
   // Called once the command ends or is interrupted.

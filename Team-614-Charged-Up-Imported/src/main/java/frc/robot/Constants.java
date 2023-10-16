@@ -39,6 +39,7 @@ public final class Constants {
     // Speed Constants for Intake and Pivot
     public static final double INTAKE_SPEED = 0.6;
     public static final double OUTTAKE_SPEED = -0.6;
+    public static final double INTAKE_REST_SPEED = 0.05;
     public static final double PIVOT_UP_SPEED = 0.2;
     public static final double PIVOT_DOWN_SPEED = -0.2;
 
