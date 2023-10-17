@@ -17,6 +17,7 @@ import frc.robot.Constants.IntakeConstants;
  * -
  * @param intakeSpeed Variable indicates the speed passed by the commans
  * that the intake motors should be set to
+ * @returns through the getSpeed() returns the speed that the intake is going at
  */
 
 public class IntakeSubsystem extends SubsystemBase {
@@ -37,6 +38,10 @@ public class IntakeSubsystem extends SubsystemBase {
 @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void getSpeed() {
+    intakeMotorR.get();
   }
 
   // Sets the value of the motor to a double, at which the motor will run

@@ -17,6 +17,7 @@ import frc.robot.Constants.IntakeConstants;
  * - 
  * @param pivotSpeed Variable represents the speed passed from a command
  * that pivot motors should be set to
+ * @returns pivotPosition through the getPosition()
  */
 
 public class PivotSubsystem extends SubsystemBase {
@@ -31,10 +32,16 @@ public class PivotSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run\
-    
+    // This method will be called once per scheduler run
   }
+
+  public double getPivotMotorHeight () {
+    return pivotMotor.getEncoder().getPosition();
+  }
+
   public void set(double pivotSpeed) {
     pivotMotor.set(pivotSpeed); 
   }
+
+
 }

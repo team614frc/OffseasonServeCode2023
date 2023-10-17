@@ -6,10 +6,13 @@ package frc.robot.commands.intakeCommands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.IntakeConstants;
 
 /**
  * The Intake Command simply uses the IntakeSubsystem
- * to set the Intake rollers to a specific value
+ * to set the Intake rollers to a specific value.
+ * Also sets the intake to a rest speed in order to hold the game piece
+ * when there is no input on the intake.
  * -
  * @param intakeSpeed,RobotContainer.intakeSubsystem this is the value that the intake will get set to
  */
@@ -37,7 +40,9 @@ public class Intake extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    RobotContainer.intakeSubsystem.set(IntakeConstants.INTAKE_REST_SPEED);
+  }
 
   // Returns true when the command should end.
   @Override
