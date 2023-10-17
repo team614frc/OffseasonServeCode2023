@@ -70,6 +70,7 @@ public class RobotContainer {
     configureButtonBindings();
     // autoChooser.addOption("Test Path", TestPath1);
     SmartDashboard.putData(autoChooser);
+    SmartDashboard.putNumber("Pivot Motor Height", pivotSubsystem.getPivotMotorHeight());
     // Configure default commands
     swerveDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
