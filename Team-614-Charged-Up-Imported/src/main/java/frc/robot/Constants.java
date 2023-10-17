@@ -38,7 +38,9 @@ public final class Constants {
 
     // Speed Constants for Intake and Pivot
     public static final double INTAKE_SPEED = 0.6;
-    public static final double OUTTAKE_SPEED = -0.6;
+    public static final double SCORE_HIGH_SPEED = -0.6; //UNTESTED VALUES PLEASE SET ACCORDING TO TEST
+    public static final double SCORE_MID_SPEED = -0.3;
+    public static final double SCORE_LOW_SPEED = -0.15;
     public static final double INTAKE_REST_SPEED = 0.05;
     public static final double PIVOT_UP_SPEED = 0.2;
     public static final double PIVOT_DOWN_SPEED = -0.2;
@@ -145,6 +147,7 @@ public final class Constants {
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kCoDriverControllerPort = 1;
     public static final double kDriveDeadband = 0.05;
     public static final int X_BUTTON = 3;
     public static final int Y_BUTTON = 4;
