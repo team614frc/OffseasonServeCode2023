@@ -36,12 +36,14 @@ public class Intake extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.intakeSubsystem.set(intakeSpeed);
+    RobotContainer.intakeSubsystem.getSpeed();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     RobotContainer.intakeSubsystem.set(IntakeConstants.INTAKE_REST_SPEED);
+    RobotContainer.intakeSubsystem.getSpeed();
   }
 
   // Returns true when the command should end.

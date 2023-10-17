@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -47,7 +48,9 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void getSpeed() {
-    intakeMotorR.get();
+    //intakeMotorR.get();
+    SmartDashboard.putNumber("Intake Speed Right", intakeMotorR.get());
+    SmartDashboard.putNumber("Intake Speed Right", intakeMotorL.get());
   }
 
   // Sets the value of the motor to a double, at which the motor will run

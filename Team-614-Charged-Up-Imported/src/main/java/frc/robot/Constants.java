@@ -41,7 +41,7 @@ public final class Constants {
     public static final double SCORE_HIGH_SPEED = -0.6; //UNTESTED VALUES PLEASE SET ACCORDING TO TEST
     public static final double SCORE_MID_SPEED = -0.3;
     public static final double SCORE_LOW_SPEED = -0.15;
-    public static final double INTAKE_REST_SPEED = 0.05;
+    public static final double INTAKE_REST_SPEED = 0.00;
     public static final double PIVOT_UP_SPEED = 0.2;
     public static final double PIVOT_DOWN_SPEED = -0.2;
     public static final double MOTOR_ZERO_SPEED = 0;
