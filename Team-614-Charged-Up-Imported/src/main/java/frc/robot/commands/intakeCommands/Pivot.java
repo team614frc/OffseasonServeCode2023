@@ -38,16 +38,20 @@ public class Pivot extends CommandBase {
   public void execute() {
     // RobotContainer.pivotSubsystem.set(pivotSpeed);
     if (pivotSpeed>0) {
-      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()<IntakeConstants.PIVOT_MAX)
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()<IntakeConstants.PIVOT_MAX) {
         RobotContainer.pivotSubsystem.set(pivotSpeed);
-      else 
+      }
+      else {
         RobotContainer.pivotSubsystem.set(IntakeConstants.MOTOR_ZERO_SPEED);
+      }
     }
     else if (pivotSpeed<0) {
-      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()>IntakeConstants.PIVOT_MIN)
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()>IntakeConstants.PIVOT_MIN) {
         RobotContainer.pivotSubsystem.set(pivotSpeed);
-      else 
+      }
+      else {
         RobotContainer.pivotSubsystem.set(IntakeConstants.MOTOR_ZERO_SPEED);
+      }
     }
   }
 
