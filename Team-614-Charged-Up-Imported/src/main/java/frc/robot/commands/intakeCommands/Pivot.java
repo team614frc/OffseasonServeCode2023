@@ -7,6 +7,7 @@ package frc.robot.commands.intakeCommands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.PivotSubsystem;
 
 /**
@@ -37,19 +38,17 @@ public class Pivot extends CommandBase {
   public void execute() {
     // RobotContainer.pivotSubsystem.set(pivotSpeed);
     if (pivotSpeed>0) {
-      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()<0)
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()<IntakeConstants.PIVOT_MAX)
         RobotContainer.pivotSubsystem.set(pivotSpeed);
       else 
-        RobotContainer.pivotSubsystem.set(pivotSpeed);
+        RobotContainer.pivotSubsystem.set(IntakeConstants.MOTOR_ZERO_SPEED);
     }
     else if (pivotSpeed<0) {
-      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()>0)
+      if (RobotContainer.pivotSubsystem.getPivotMotorHeight()>IntakeConstants.PIVOT_MIN)
         RobotContainer.pivotSubsystem.set(pivotSpeed);
       else 
-        RobotContainer.pivotSubsystem.set(pivotSpeed);
+        RobotContainer.pivotSubsystem.set(IntakeConstants.MOTOR_ZERO_SPEED);
     }
-    else 
-      RobotContainer.pivotSubsystem.set(pivotSpeed);
   }
 
   // Called once the command ends or is interrupted.

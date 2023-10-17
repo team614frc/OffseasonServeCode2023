@@ -42,6 +42,11 @@ public final class Constants {
     public static final double INTAKE_REST_SPEED = 0.05;
     public static final double PIVOT_UP_SPEED = 0.2;
     public static final double PIVOT_DOWN_SPEED = -0.2;
+    public static final double MOTOR_ZERO_SPEED = 0;
+
+    // Encoder Values for the Intake and Pivot
+    public static final double PIVOT_MAX = 10;
+    public static final double PIVOT_MIN = 0;
 
     public static final int MOTOR_CURRENT_LIMIT = 40;
   }
