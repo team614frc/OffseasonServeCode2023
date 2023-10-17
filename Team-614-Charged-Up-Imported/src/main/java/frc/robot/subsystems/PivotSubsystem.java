@@ -5,10 +5,12 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The PivotSubsystem has the motor objects for the motors of the
@@ -33,10 +35,16 @@ public class PivotSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Encoder Value Subsystem", getPivotMotorHeight());
   }
 
   public double getPivotMotorHeight () {
     return pivotMotor.getEncoder().getPosition();
+  }
+
+  public RelativeEncoder getEncoder()
+  {
+    return pivotMotor.getEncoder();
   }
 
   public void set(double pivotSpeed) {

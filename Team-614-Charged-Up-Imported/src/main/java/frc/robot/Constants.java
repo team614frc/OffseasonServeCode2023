@@ -30,11 +30,11 @@ public final class Constants {
 
   public static final class IntakeConstants {
     // CAN IDs for the Intake Motors
-    public static final int INTAKE_MOTOR_RIGHT = 999;
-    public static final int INTAKE_MOTOR_LEFT = 999;
+    public static final int INTAKE_MOTOR_RIGHT = 48;
+    public static final int INTAKE_MOTOR_LEFT = 47;
 
     // CAN ID for the Pivot Motors
-    public static final int PIVOT_MOTOR = 89;
+    public static final int PIVOT_MOTOR = 13;
 
     // Speed Constants for Intake and Pivot
     public static final double INTAKE_SPEED = 0.6;
