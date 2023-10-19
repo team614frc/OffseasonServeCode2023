@@ -28,8 +28,9 @@ public class PivotSubsystem extends SubsystemBase {
   private CANSparkMax pivotMotor;
 
   public PivotSubsystem() {
-    pivotMotor.restoreFactoryDefaults();
+   
     pivotMotor = new CANSparkMax(IntakeConstants.PIVOT_MOTOR, MotorType.kBrushless);
+    pivotMotor.restoreFactoryDefaults();
     pivotMotor.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
     pivotMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     pivotMotor.burnFlash();

@@ -40,6 +40,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+//import frc.robot.commands.autonomous.PathPlannerCommands.AutoBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +61,9 @@ public class RobotContainer {
   // The driver's controller
   CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverControllerPort);
   CommandXboxController m_coDriverController = new CommandXboxController(OIConstants.kCoDriverControllerPort);
+  //private AutoBuilder autoBuilder = new AutoBuilder(swerveDrive, intakeSubsystem, pivotSubsystem);
 
-  SendableChooser<Command> autoChooser = new SendableChooser<>();
+  // SendableChooser<Command> autoChooser = new SendableChooser<>();
   // private final Command TestPath1
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -70,7 +72,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     // autoChooser.addOption("Test Path", TestPath1);
-    SmartDashboard.putData(autoChooser);
+    //SmartDashboard.putData(autoChooser);
     SmartDashboard.putNumber("Pivot Motor Height", pivotSubsystem.getPivotMotorHeight());
     // Configure default commands
     swerveDrive.setDefaultCommand(
@@ -103,7 +105,8 @@ public class RobotContainer {
     m_driverController.button(OIConstants.A_BUTTON).onTrue(new PivotDown(IntakeConstants.PIVOT_DOWN_SPEED));
     m_driverController.button(OIConstants.X_BUTTON).onTrue(new PivotUp(IntakeConstants.PIVOT_UP_SPEED));
 
-    //m_coDriverController.button(OIConstants.RIGHT_STICK_PRESS).whileTrue(new setXCommand());
+    // m_coDriverController.button(OIConstants.RIGHT_STICK_PRESS).whileTrue(new
+    // setXCommand());
     m_coDriverController.rightTrigger().whileTrue(new Intake(IntakeConstants.SCORE_HIGH_SPEED));
     m_coDriverController.button(OIConstants.RIGHT_BUMPER).whileTrue(new Intake(IntakeConstants.SCORE_MID_SPEED));
     m_coDriverController.button(OIConstants.LEFT_BUMPER).whileTrue(new Intake(IntakeConstants.SCORE_LOW_SPEED));
@@ -119,44 +122,49 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    // Create config for trajectory
+    //Create config for trajectory
     TrajectoryConfig config = new TrajectoryConfig(
-        AutoConstants.kMaxSpeedMetersPerSecond,
-        AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        // Add kinematics to ensure max speed is actually obeyed
-        .setKinematics(DriveConstants.kDriveKinematics);
+    AutoConstants.kMaxSpeedMetersPerSecond,
+    AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+    // Add kinematics to ensure max speed is actually obeyed
+    .setKinematics(DriveConstants.kDriveKinematics);
 
     // An example trajectory to follow. All units in meters.
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
-        new Pose2d(0, 0, new Rotation2d(0)),
-        // Pass through these two interior waypoints, making an 's' curve path
-        List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-        // End 3 meters straight ahead of where we started, facing forward
-        new Pose2d(3, 0, new Rotation2d(0)),
-        config);
+    // Start at the origin facing the +X direction
+    new Pose2d(0, 0, new Rotation2d(0)),
+    // Pass through these two interior waypoints, making an 's' curve path
+    List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+    // End 3 meters straight ahead of where we started, facing forward
+    new Pose2d(3, 0, new Rotation2d(0)),
+    config);
 
     var thetaController = new ProfiledPIDController(
-        AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+    AutoConstants.kPThetaController, 0, 0,
+    AutoConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        exampleTrajectory,
-        swerveDrive::getPose, // Functional interface to feed supplier
-        DriveConstants.kDriveKinematics,
+    SwerveControllerCommand swerveControllerCommand = new
+    SwerveControllerCommand(
+    exampleTrajectory,
+    swerveDrive::getPose, // Functional interface to feed supplier
+    DriveConstants.kDriveKinematics,
 
-        // Position controllers
-        new PIDController(AutoConstants.kPXController, 0, 0),
-        new PIDController(AutoConstants.kPYController, 0, 0),
-        thetaController,
-        swerveDrive::setModuleStates,
-        swerveDrive);
+    // Position controllers
+    new PIDController(AutoConstants.kPXController, 0, 0),
+    new PIDController(AutoConstants.kPYController, 0, 0),
+    thetaController,
+    swerveDrive::setModuleStates,
+    swerveDrive);
 
     // Reset odometry to the starting pose of the trajectory.
     swerveDrive.resetOdometry(exampleTrajectory.getInitialPose());
 
     // Run path following command, then stop at the end.
-    return swerveControllerCommand.andThen(() -> swerveDrive.drive(0, 0, 0, false, false));
-  }
+    return swerveControllerCommand.andThen(() -> swerveDrive.drive(0, 0, 0,
+    false, false));
+    }
+    //return autoBuilder.getSelectedAuto();
+  //}
 
 }

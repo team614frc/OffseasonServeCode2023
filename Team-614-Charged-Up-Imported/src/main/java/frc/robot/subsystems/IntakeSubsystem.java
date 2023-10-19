@@ -30,12 +30,15 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public IntakeSubsystem() {
     // Creates a new motor
+
+    intakeMotorR = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_RIGHT, MotorType.kBrushless);
+    intakeMotorL = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_LEFT, MotorType.kBrushless);
     intakeMotorR.restoreFactoryDefaults();
     intakeMotorL.restoreFactoryDefaults();
-    intakeMotorR = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_RIGHT, MotorType.kBrushless);
     intakeMotorR.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
-    intakeMotorL = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_LEFT, MotorType.kBrushless);
     intakeMotorL.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
+    intakeMotorL.setInverted(false);
+    intakeMotorR.setInverted(false);
     intakeMotorL.setIdleMode(CANSparkMax.IdleMode.kBrake);
     intakeMotorR.setIdleMode(CANSparkMax.IdleMode.kBrake);
     intakeMotorL.burnFlash();
@@ -63,8 +66,8 @@ public class IntakeSubsystem extends SubsystemBase {
 
   // Sets the value of the motor to a double, at which the motor will run
   public void set(double intakeSpeed) {
-    intakeMotorR.set(intakeSpeed);
-    intakeMotorL.set(-intakeSpeed);
+    intakeMotorR.set(-intakeSpeed);
+    intakeMotorL.set(intakeSpeed);
   }
 
 }
