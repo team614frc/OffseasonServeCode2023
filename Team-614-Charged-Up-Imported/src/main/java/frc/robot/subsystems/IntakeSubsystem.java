@@ -30,13 +30,21 @@ public class IntakeSubsystem extends SubsystemBase {
   
   public IntakeSubsystem() {
     // Creates a new motor
+    intakeMotorR.restoreFactoryDefaults();
+    intakeMotorL.restoreFactoryDefaults();
     intakeMotorR = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_RIGHT, MotorType.kBrushless);
     intakeMotorR.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
     intakeMotorL = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_LEFT, MotorType.kBrushless);
     intakeMotorL.setSmartCurrentLimit(IntakeConstants.MOTOR_CURRENT_LIMIT);
+    intakeMotorL.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    intakeMotorR.setIdleMode(CANSparkMax.IdleMode.kBrake);
+    intakeMotorL.burnFlash();
+    intakeMotorR.burnFlash(); 
+
     // intakeMotorL.setInverted(false);
     // intakeMotorR.setInverted(true);
     //intakeMotorL.follow(intakeMotorR); // Sets the left motor to be the follow of the right intake motor
+    SmartDashboard.putData("IntakeSubsystem", this);
   }
 
 @Override
