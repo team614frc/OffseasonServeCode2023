@@ -32,7 +32,7 @@ public class AutoBuilder {
   // ====================================================================
 
   //PathPlannerTrajectory dummyPath = PathPlannerBase.getTrajectory("StraightLine", true);
-  PathPlannerTrajectory dummyDonut = PathPlannerBase.getTrajectory("DonutPath", true);
+  PathPlannerTrajectory donutPath = PathPlannerBase.getTrajectory("DonutPath", true);
   PathPlannerTrajectory figure8 = PathPlannerBase.getTrajectory("FigureEight", true);
   PathPlannerTrajectory score2Path = PathPlannerBase.getTrajectory("TwoCubeCableSide", true);
   PathPlannerTrajectory score1NoCable = PathPlannerBase.getTrajectory("DriveBackNoCableSide", true);
@@ -102,29 +102,6 @@ public class AutoBuilder {
       PathPlannerBase.generateAuto(score1Cable)
     );
   }
-
-  // public Command ScoreOne(){
-  //   new InstantCommand(()->manager.setScoringHeightHigh());
-  //   return new SequentialCommandGroup(
-  //       new InstantCommand(()->manuiplator.setTargetPosition(manager.getScoringHeight(), manuiplator)),
-  //       new WaitCommand(.75),
-  //       extension.driveUntil(60, false),
-  //       new RunCommand(()-> intake.runIntake(-.6), intake).withTimeout(0.5),
-  //       new InstantCommand(()->intake.runIntake(0)),
-  //       returnManipulator()
-  //   );
-  // }
-  // public Command ScoreOneMid(){
-  //   new InstantCommand(()->manager.setScoringHeightMid());
-  //   return new SequentialCommandGroup(
-  //       new InstantCommand(()->manuiplator.setTargetPosition(manager.getScoringHeight(), manuiplator)),
-  //       new WaitCommand(.75),
-  //       extension.driveUntil(60, false),
-  //       new RunCommand(()-> intake.runIntake(-.6), intake).withTimeout(0.5),
-  //       new InstantCommand(()->intake.runIntake(0)),
-  //       returnManipulator()
-  //   );
-  // }
 
   private Command nonCableSide2Pc(){
     HashMap<String, Command> eventMap = new HashMap<>();
