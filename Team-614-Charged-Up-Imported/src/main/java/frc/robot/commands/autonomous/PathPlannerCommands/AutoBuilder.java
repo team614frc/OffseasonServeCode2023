@@ -1,5 +1,5 @@
 //package frc.robot.utils;
-package frc.robot.commands.autonomous.PathPlannerCommands;   
+package frc.robot.commands.autonomous.PathPlannerCommands;
 
 import java.util.HashMap;
 
@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.intakeCommands.Intake;
+import frc.robot.commands.intakeCommands.PivotDown;
 //import frc.robot.RobotManager;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -23,105 +24,106 @@ public class AutoBuilder {
   DriveSubsystem drivetrain;
   PivotSubsystem pivot;
   IntakeSubsystem intake;
- 
 
   private final SendableChooser<Command> chooser = new SendableChooser<>();
 
   // ====================================================================
-  //                          Trajectories
+  // Trajectories
   // ====================================================================
 
-  //PathPlannerTrajectory dummyPath = PathPlannerBase.getTrajectory("StraightLine", true);
+  // PathPlannerTrajectory dummyPath =
+  // PathPlannerBase.getTrajectory("StraightLine", true);
   PathPlannerTrajectory donutPath = PathPlannerBase.getTrajectory("DonutPath", true);
   PathPlannerTrajectory figure8 = PathPlannerBase.getTrajectory("FigureEight", true);
   PathPlannerTrajectory score2Path = PathPlannerBase.getTrajectory("TwoCubeCableSide", true);
-  PathPlannerTrajectory score1NoCable = PathPlannerBase.getTrajectory("DriveBackNoCableSide", true);
+  PathPlannerTrajectory score1NoCable = PathPlannerBase.getTrajectory("DriveBackNoCableSide", false);
   PathPlannerTrajectory score1Cable = PathPlannerBase.getTrajectory("DriveBackCableSide", true);
 
-
   // ====================================================================
-  //                          Routines
+  // Routines
   // ====================================================================
 
- /* private Command dummyPathOne() {
-    return PathPlannerBase.followTrajectoryCommand(dummyPath, true);
-  } */
+  /*
+   * private Command dummyPathOne() {
+   * return PathPlannerBase.followTrajectoryCommand(dummyPath, true);
+   * }
+   */
 
- /*  private Command dummyPathDonut() {
-    return PathPlannerBase.followTrajectoryCommand(dummyDonut, true);
-  } */
+  /*
+   * private Command dummyPathDonut() {
+   * return PathPlannerBase.followTrajectoryCommand(dummyDonut, true);
+   * }
+   */
 
- /*  private Command figureEight() {
-    return PathPlannerBase.followTrajectoryCommand(figure8, true);
-  } */
+  /*
+   * private Command figureEight() {
+   * return PathPlannerBase.followTrajectoryCommand(figure8, true);
+   * }
+   */
 
-  private Command score1HighBackNoCable(){
+  private Command score1HighBackNoCable() {
+    return new SequentialCommandGroup(
+        new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.followTrajectoryCommand(score1NoCable, true));
+  }
+
+  private Command score1HighBackCable() {
+    return new SequentialCommandGroup(
+        new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.generateAuto(score1NoCable));
+  }
+
+  private Command score1MidBackNoCable() {
+    return new SequentialCommandGroup(
+        new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.generateAuto(score1NoCable));
+  }
+
+  private Command score1MidBackCable() {
+    return new SequentialCommandGroup(
+        // new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.generateAuto(score1Cable));
+  }
+
+  private Command score1LowBackNoCable() {
+    return new SequentialCommandGroup(
+        new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.generateAuto(score1NoCable));
+  }
+
+  private Command score1LowBackCable() {
+    return new SequentialCommandGroup(
+        new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
+        new WaitCommand(.5),
+        PathPlannerBase.generateAuto(score1Cable));
+  }
+
+  private Command nonCableSide2Pc() {
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("pickUp", new RunCommand(() -> intake.set(Constants.IntakeConstants.INTAKE_SPEED), intake));
+    eventMap.put("stopPickup", new RunCommand(() -> intake.set(0.0)));
+    return new SequentialCommandGroup(
+        score1HighBackNoCable(),
+        PathPlannerBase.generateAuto(eventMap, score2Path),
+        score1MidBackCable()
+
+    );
+  }
+
+  private Command nonCableSide2PcChargeStation() {
+    HashMap<String, Command> eventMap = new HashMap<>();
+
+    eventMap.put("pickUp", new RunCommand(() -> intake.set(Constants.IntakeConstants.INTAKE_SPEED), intake));
+    eventMap.put("shootHigh", new RunCommand(() -> intake.set(Constants.IntakeConstants.SCORE_HIGH_SPEED)));
     return new SequentialCommandGroup(
       new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1NoCable)
-    );
-  }
-
-  private Command score1HighBackCable(){
-    return new SequentialCommandGroup(
-     new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1NoCable)
-    );
-  }
-
-  private Command score1MidBackNoCable(){
-    return new SequentialCommandGroup(
-      new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1NoCable)
-    );
-  }
-
-  private Command score1MidBackCable(){
-    return new SequentialCommandGroup(
-     // new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1Cable)
-    );
-  }
-
-  private Command score1LowBackNoCable(){
-    return new SequentialCommandGroup(
-      new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1NoCable)
-    );
-  }
-
-  private Command score1LowBackCable(){
-    return new SequentialCommandGroup(
-      new Intake(Constants.IntakeConstants.SCORE_MID_SPEED).withTimeout(0.5),
-      new WaitCommand(.5),
-      PathPlannerBase.generateAuto(score1Cable)
-    );
-  }
-
-  private Command nonCableSide2Pc(){
-    HashMap<String, Command> eventMap = new HashMap<>();
-    eventMap.put("pickUp", new RunCommand(()->intake.set(Constants.IntakeConstants.INTAKE_SPEED), intake));
-    eventMap.put("stopPickup", new RunCommand(()->intake.set(0.0)));
-    return new SequentialCommandGroup(
-      score1HighBackNoCable(),
-        PathPlannerBase.generateAuto(eventMap, score2Path),
-       score1MidBackCable()
-
-    );
-  }
-
-  private Command nonCableSide2PcChargeStation(){
-    HashMap<String, Command> eventMap = new HashMap<>();
-    eventMap.put("pickUp", new RunCommand(()->intake.set(Constants.IntakeConstants.INTAKE_SPEED), intake));
-    eventMap.put("shootHigh", new RunCommand(()->intake.set(Constants.IntakeConstants.SCORE_HIGH_SPEED)));
-    return new SequentialCommandGroup(
-      score1HighBackNoCable(),
-        PathPlannerBase.generateAuto(eventMap, score2Path)
+      new PivotDown(Constants.IntakeConstants.PIVOT_DOWN_SPEED).withTimeout(0.5),
+      PathPlannerBase.generateAuto(eventMap, score2Path)
 
     );
   }
@@ -131,17 +133,17 @@ public class AutoBuilder {
     this.intake = intake;
     this.pivot = pivot;
 
-    /* chooser.addOption("Dummy 1", dummyPathOne());
-    chooser.addOption("Dummy Donut", dummyPathDonut());
-    chooser.addOption("8's HEHEHEHE", figureEight());
-    */
+    /*
+     * chooser.addOption("Dummy 1", dummyPathOne());
+     * chooser.addOption("Dummy Donut", dummyPathDonut());
+     * chooser.addOption("8's HEHEHEHE", figureEight());
+     */
     chooser.addOption("Score Two NonCable", nonCableSide2Pc());
-    chooser.addOption("Score One Mid Cable",score1MidBackCable());
+    chooser.addOption("Score One Mid Cable", score1MidBackCable());
     chooser.addOption("Score One High Cable", score1HighBackCable());
     chooser.addOption("Score Two Cube Charge Station", nonCableSide2PcChargeStation());
 
-
-    chooser.setDefaultOption("Score One High no Cake", score1HighBackNoCable());
+    chooser.setDefaultOption("Score One High no Cable TEST ONE", score1HighBackNoCable());
     SmartDashboard.putData("Auto Selector", chooser);
   }
 
@@ -153,17 +155,16 @@ public class AutoBuilder {
   }
 
   // ====================================================================
-  //                          Helpers
+  // Helpers
   // ====================================================================
 
   // private Command returnManipulator(){
-  //   return new SequentialCommandGroup( 
-  //       extension.driveUntil(1, true),
-  //       new WaitCommand(.1),
-  //       new InstantCommand(()->manuiplator.setTargetPosition(Constants.Manuiplator.kGroundPosition, manuiplator))
-       
+  // return new SequentialCommandGroup(
+  // extension.driveUntil(1, true),
+  // new WaitCommand(.1),
+  // new
+  // InstantCommand(()->manuiplator.setTargetPosition(Constants.Manuiplator.kGroundPosition,
+  // manuiplator))
 
-  //   );
-  }
-
-
+  // );
+}

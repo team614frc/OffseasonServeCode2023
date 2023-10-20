@@ -74,7 +74,7 @@ public class PathPlannerBase {
                 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will
             // only use feedforwards.
             drivetrain::setModuleStates, // Module states consumer
-            true, // Should the path be automatically mirrored depending on alliance color.
+            false, // Should the path be automatically mirrored depending on alliance color.
             // Optional, defaults to true
             drivetrain // Requires this drive subsystem
             ));
@@ -92,8 +92,8 @@ public class PathPlannerBase {
             drivetrain::getPose,
             drivetrain::resetOdometry,
             DriveConstants.kDriveKinematics,
-            new PIDConstants(0.0, 0.0, 0.0),
-            new PIDConstants(0.0, 0.0, 0.0),
+            new PIDConstants(1.0, 0.0, 0.0),
+            new PIDConstants(1.0, 0.0, 0.0),
             drivetrain::setModuleStates,
             new HashMap<String, Command>(),
             true);
@@ -115,7 +115,7 @@ public class PathPlannerBase {
             drivetrain::getPose,
             drivetrain::resetOdometry,
             DriveConstants.kDriveKinematics,
-            new PIDConstants(5.0, 0.0, 0.0),
+            new PIDConstants(1.0, 0.0, 0.0),
             new PIDConstants(0.5, 0.0, 0.0),
             drivetrain::setModuleStates,
             eventMap,
@@ -139,7 +139,7 @@ public class PathPlannerBase {
             drivetrain::getPose,
             drivetrain::resetOdometry,
             DriveConstants.kDriveKinematics,
-            new PIDConstants(5.0, 0.0, 0.0),
+            new PIDConstants(1.0, 0.0, 0.0),
             new PIDConstants(0.5, 0.0, 0.0),
             drivetrain::setModuleStates,
             eventMap,
