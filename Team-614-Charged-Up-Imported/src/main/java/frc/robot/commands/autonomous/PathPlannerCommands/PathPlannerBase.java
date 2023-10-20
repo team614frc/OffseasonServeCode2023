@@ -23,7 +23,7 @@ import java.util.HashMap;
 public class PathPlannerBase {
 
   static final DriveSubsystem drivetrain = RobotContainer.swerveDrive;
-  static final PathConstraints constraints = new PathConstraints(4,3 );
+  static final PathConstraints constraints = new PathConstraints(1,0.5 );
 
   /**
    * Generates a usable pathplanner trajectory
@@ -65,12 +65,12 @@ public class PathPlannerBase {
             drivetrain::getPose, // Pose supplier
             DriveConstants.kDriveKinematics, // SwerveDriveKinematics
             new PIDController(
-                5, 0,
+                1, 0,
                 0), // X controller. Tune these values for your robot. Leaving them 0 will only use
             // feedforwards.
-            new PIDController(5, 0, 0), // Y controller (usually the same values as X controller)
+            new PIDController(1, 0, 0), // Y controller (usually the same values as X controller)
             new PIDController(
-                3, 0,
+                1, 0,
                 0), // Rotation controller. Tune these values for your robot. Leaving them 0 will
             // only use feedforwards.
             drivetrain::setModuleStates, // Module states consumer

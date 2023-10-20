@@ -31,12 +31,12 @@ public class AutoBuilder {
   //                          Trajectories
   // ====================================================================
 
-  PathPlannerTrajectory dummyPath = PathPlannerBase.getTrajectory("StraightLine", true);
-  PathPlannerTrajectory dummyDonut = PathPlannerBase.getTrajectory("DummyPathDonut", true);
-  PathPlannerTrajectory figure8 = PathPlannerBase.getTrajectory("FigureThis", true);
-  PathPlannerTrajectory score2Path = PathPlannerBase.getTrajectory("OutNBack", true);
-  PathPlannerTrajectory score1NoCable = PathPlannerBase.getTrajectory("DriveBackNoCable", true);
-  PathPlannerTrajectory score1Cable = PathPlannerBase.getTrajectory("DriveBackCable", true);
+  //PathPlannerTrajectory dummyPath = PathPlannerBase.getTrajectory("StraightLine", true);
+  PathPlannerTrajectory dummyDonut = PathPlannerBase.getTrajectory("DonutPath", true);
+  PathPlannerTrajectory figure8 = PathPlannerBase.getTrajectory("FigureEight", true);
+  PathPlannerTrajectory score2Path = PathPlannerBase.getTrajectory("TwoCubeCableSide", true);
+  PathPlannerTrajectory score1NoCable = PathPlannerBase.getTrajectory("DriveBackNoCableSide", true);
+  PathPlannerTrajectory score1Cable = PathPlannerBase.getTrajectory("DriveBackCableSide", true);
 
 
   // ====================================================================
@@ -65,9 +65,9 @@ public class AutoBuilder {
 
   private Command score1HighBackCable(){
     return new SequentialCommandGroup(
-     // new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
+     new Intake(Constants.IntakeConstants.SCORE_HIGH_SPEED).withTimeout(0.5),
       new WaitCommand(.5),
-      PathPlannerBase.generateAuto(dummyPath)
+      PathPlannerBase.generateAuto(score1NoCable)
     );
   }
 
@@ -138,6 +138,17 @@ public class AutoBuilder {
     );
   }
 
+  private Command nonCableSide2PcChargeStation(){
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("pickUp", new RunCommand(()->intake.set(Constants.IntakeConstants.INTAKE_SPEED), intake));
+    eventMap.put("shootHigh", new RunCommand(()->intake.set(Constants.IntakeConstants.SCORE_HIGH_SPEED)));
+    return new SequentialCommandGroup(
+      score1HighBackNoCable(),
+        PathPlannerBase.generateAuto(eventMap, score2Path)
+
+    );
+  }
+
   public AutoBuilder(DriveSubsystem drivetrain, IntakeSubsystem intake, PivotSubsystem pivot) {
     this.drivetrain = drivetrain;
     this.intake = intake;
@@ -150,6 +161,7 @@ public class AutoBuilder {
     chooser.addOption("Score Two NonCable", nonCableSide2Pc());
     chooser.addOption("Score One Mid Cable",score1MidBackCable());
     chooser.addOption("Score One High Cable", score1HighBackCable());
+    chooser.addOption("Score Two Cube Charge Station", nonCableSide2PcChargeStation());
 
 
     chooser.setDefaultOption("Score One High no Cake", score1HighBackNoCable());
