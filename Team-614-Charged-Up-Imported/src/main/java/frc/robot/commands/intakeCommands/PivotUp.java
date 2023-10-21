@@ -42,7 +42,7 @@ public class PivotUp extends CommandBase {
   @Override
   public void execute() {
 
-    if (Math.abs(RobotContainer.pivotSubsystem.getPivotMotorHeight()) > 2 ) {
+    if (Math.abs(RobotContainer.pivotSubsystem.getPivotMotorHeight()) > 3 ) {
       RobotContainer.pivotSubsystem.set(-pivotSpeed);
 
       SmartDashboard.putNumber("Encoder Position in Command",

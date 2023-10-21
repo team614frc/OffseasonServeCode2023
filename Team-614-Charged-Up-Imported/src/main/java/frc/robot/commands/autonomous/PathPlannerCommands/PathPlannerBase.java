@@ -96,7 +96,7 @@ public class PathPlannerBase {
             new PIDConstants(1.0, 0.0, 0.0),
             drivetrain::setModuleStates,
             new HashMap<String, Command>(),
-            true);
+            false);
     return autoBuilder.fullAuto(traj);
   }
 
