@@ -93,11 +93,11 @@ public class RobotContainer {
                                         OIConstants.kDriveDeadband),
 
                                         
-                -MathUtil.applyDeadband(.5*Math.pow(m_driverController.getRightX(),3)+
-                                        .5 *Math.pow(m_driverController.getRightX(),1), 
+                -MathUtil.applyDeadband((.5*Math.pow(m_driverController.getRightX(),3)+
+                                        .5 *Math.pow(m_driverController.getRightX(),1))*0.5, 
                                         OIConstants.kDriveDeadband),
-                true, true),
-            swerveDrive));
+                          true, true),
+                                        swerveDrive));
   }
 
   /**
