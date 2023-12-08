@@ -12,19 +12,18 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.commands.intakeCommands.Intake;
-import frc.robot.RobotManager;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.PivotSubsystem;
 
 // /** This utility class is built for selecting made autos */
  public class AutoBuilder {
-//   DriveSubsystem drivetrain;
-//   PivotSubsystem pivot;
-//   IntakeSubsystem intake;
+  DriveSubsystem drivetrain;
+  PivotSubsystem pivot;
+ IntakeSubsystem intake;
  
 
-//   private final SendableChooser<Command> chooser = new SendableChooser<>();
+   private final SendableChooser<Command> chooser = new SendableChooser<>();
 
 //   // ====================================================================
 //   //                          Trajectories
@@ -55,6 +54,10 @@ import frc.robot.subsystems.PivotSubsystem;
 //  /*  private Command figureEight() {
 //     return PathPlannerBase.followTrajectoryCommand(figure8, true);
 //   } */
+
+        private Command dummyNatePath() {
+        return PathPlannerBase.followTrajectoryCommand(this.dummyNatePath, true);
+        }
 
 //   private Command score1HighBackNoCable(){
 //     return new SequentialCommandGroup(
@@ -144,15 +147,15 @@ public AutoBuilder(DriveSubsystem drivetrain, IntakeSubsystem intake, PivotSubsy
     this.drivetrain = drivetrain; 
     this.intake = intake; 
     this.pivot = pivot; 
-    chooser = new SendableChooser(); 
-    chooser.addOption("Dummy 1", dummyPathOne()); 
-    chooser.addOption("Dummy Donut", dummyPathDonut()); 
-    chooser.addOption("8's HEHEHEHE", figureEight()); 
+    //  chooser = new SendableChooser(); 
+   //   chooser.addOption("Dummy 1", dummyPathOne()); 
+    //  chooser.addOption("Dummy Donut", dummyPathDonut()); 
+    //  chooser.addOption("8's HEHEHEHE", figureEight()); 
     chooser.addOption("Darin is so Amazing!!", dummyNatePath()); 
-    chooser.addOption("Score Two NonCable", nonCableSide2Pc()); 
-    chooser.addOption("Score One Mid Cable",score1MidBackCable()); 
-    chooser.addOption("Score One High Cable", score1HighBackCable()); 
-    chooser.setDefaultOption("Score One High no Cake", score1HighBackNoCable()); 
+   //   chooser.addOption("Score Two NonCable", nonCableSide2Pc()); 
+   //   chooser.addOption("Score One Mid Cable",score1MidBackCable()); 
+   //   chooser.addOption("Score One High Cable", score1HighBackCable()); 
+    // chooser.setDefaultOption("Score One High no Cake", score1HighBackNoCable()); 
     SmartDashboard.putData("Auto Selector", chooser); 
 }
 
