@@ -4,7 +4,7 @@
 
 package frc.robot.commands.intakeCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.IntakeConstants;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *                                                 to
  */
 
-public class PivotUp extends CommandBase {
+public class PivotUp extends Command {
 
   private double pivotSpeed;
 

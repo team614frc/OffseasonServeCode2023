@@ -4,7 +4,7 @@
 
 package frc.robot.commands.intakeCommands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.IntakeConstants;
 
@@ -17,7 +17,7 @@ import frc.robot.Constants.IntakeConstants;
  * @param intakeSpeed,RobotContainer.intakeSubsystem this is the value that the intake will get set to
  */
 
-public class Intake extends CommandBase {
+public class Intake extends Command {
   
   public double intakeSpeed;
 
